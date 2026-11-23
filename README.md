@@ -4,7 +4,7 @@
 
 **Pruebas realizadas sobre esta copia:** 49/49 suites Node; 145/145 chequeos estáticos/HTTP; 35/35 cámaras renderizadas en Chromium con posiciones de QA; 16 vistas de ataques; 69 duelos simulados; 23 atlas x 20 fotogramas; recorrido Chromium **desde una partida limpia con entradas de teclado reales**, guardado manual/automático, exportación e importación JSON desde el selector de archivos, título y continuación; lanzador Linux ejecutado en este contenedor (HTTP 200). Ver `QA-v4.0.md`.
 
-**No comprobado:** campaña humana 35 cámaras / 8 jefes sin atajos, tres finales obtenidos por partidas completas, mando físico, Windows 11 y Linux Mint reales, ni sesión de rendimiento/audio de una hora. Por tanto **NO-GO** para anunciar una v4.0 comercial estable. Sin publicación en GitHub.
+**No comprobado:** campaña humana 35 cámaras / 8 jefes sin atajos, tres finales obtenidos por partidas completas, mando físico, Windows 11 y Linux Mint reales, ni sesión de rendimiento/audio de una hora. Por tanto **NO-GO** para anunciar una v4.0 comercial estable. El repositorio y GitHub Pages sí están publicados y verificados.
 
 **Jugar:** doble clic en `JUGAR-WINDOWS.bat` o en Linux `chmod +x JUGAR-LINUX.sh && ./JUGAR-LINUX.sh`; requiere Python 3 y navegador moderno. Usa siempre `http://127.0.0.1:8765/` para mantener tus partidas. Antes de sustituir otra versión, exporta las partidas en **Copias de seguridad JSON** y confirma que el archivo se ha guardado.
 
