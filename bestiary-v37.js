@@ -38,8 +38,9 @@ export const BESTIARY_BEHAVIORS = Object.freeze(Object.fromEntries(BESTIARY.map(
 })));
 export const bestiarySpec = kind=>BESTIARY_BY_KIND[kind]||null;
 export function bestiaryFrame(enemy,time){
- if(enemy.windup>0)return 8+(Math.floor(time/145)%2);
- if(enemy.strike>0||enemy.dash>0)return 10+Math.floor(time/110)%2;
+ // The final preparation pose and the release pose follow the actual attack clock.
+ if(enemy.windup>0)return enemy.windup<Math.min(.24,(enemy.windupTotal||1)*.35)?9:8;
+ if(enemy.strike>0||enemy.dash>0||enemy.cast>0)return (enemy.strike||enemy.dash||enemy.cast)>.075?10:11;
  if(enemy.stagger>0)return 16;
  return Math.abs(enemy.motion||0)>9?Math.floor(time/145)%8:4+Math.floor(time/650)%2;
 }

@@ -42,6 +42,10 @@ for(const entry of BESTIARY){
  assert.ok(data.length>12000);
 }
 assert.equal(shapes.size,7);
+assert.ok(new Set(BESTIARY.map(entry=>JSON.stringify(bestiaryCue(entry.kind,'prepare')))).size>=17,'Los avisos deben distinguir a más criaturas que las siete familias');
+assert.equal(bestiaryFrame({kind:'ashhound',windup:.5,windupTotal:.7,strike:0,dash:0,cast:0},0),8);
+assert.equal(bestiaryFrame({kind:'ashhound',windup:.1,windupTotal:.7,strike:0,dash:0,cast:0},0),9);
+assert.equal(bestiaryFrame({kind:'ashhound',windup:0,strike:0,dash:0,cast:.04},0),11,'La pose de impacto continúa tras aplicar daño');
 const idle=bestiaryFrame({kind:'ashhound',x:100,windup:0,strike:0,stagger:0,motion:0},0);
 const run=bestiaryFrame({kind:'ashhound',x:100,windup:0,strike:0,stagger:0,motion:100},0);
 assert.ok(idle>=4&&idle<=5);

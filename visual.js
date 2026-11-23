@@ -59,7 +59,9 @@ function knight(c,p,time){
     if(p.attack>0){const cx=p.x+p.w*.5,cy=p.y+23;
       c.save();c.translate(cx,cy);if(p.face<0)c.scale(-1,1);
       c.strokeStyle=`rgba(246,207,147,${.68*(1-progress)})`;c.lineWidth=5;c.beginPath();
-      c.arc(0,2,66+p.combo*9,-1.35+progress*2.25,-.95+progress*2.25);c.stroke();c.restore();}
+      c.lineWidth=p.combo===2?9:p.combo===1?4:6;
+      const sweep=p.combo===1?1.35-progress*2.5:-1.35+progress*(p.combo===2?2.9:2.25);
+      c.arc(0,p.combo===2?14:2,66+p.combo*9,sweep,sweep+(p.combo===2?.7:.4));c.stroke();c.restore();}
     return;
   }
   let x=p.x+p.w/2,y=p.y+p.h;let movingFallback=Math.abs(p.vx)>1&&p.grounded;let walk=movingFallback?Math.sin(time*.013)*5:0;c.save();c.translate(x,y);if(p.face<0)c.scale(-1,1);if(p.inv>0&&Math.floor(time/80)%2===0)c.globalAlpha=.55;let cape=walk*.6+Math.sin(time*.002)*3;poly(c,[[-8,-47],[-24,-37+cape],[-28,-8+cape],[-12,-12],[5,-43]],'#8d3038','#d16558',1.5);poly(c,[[-9,-17],[-13+walk,-1],[-3+walk,0],[1,-20]],'#31383c','#859092',1);poly(c,[[4,-17],[5-walk,-1],[16-walk,0],[14,-20]],'#252c33','#7b8588',1);box(c,-14,-4,13,5,'#1b2429');box(c,5,-4,13,5,'#1b2429');poly(c,[[-13,-51],[-17,-37],[-10,-18],[13,-18],[18,-37],[11,-52]],'#465158','#9ba3a0',2);poly(c,[[-11,-46],[0,-53],[12,-45],[9,-25],[-8,-25]],'#252f36','#a5a69c',1);c.fillStyle='#d89b59';c.beginPath();c.arc(0,-33,5,0,TAU);c.fill();c.fillStyle='#f7d3a0';c.fillRect(-2,-35,4,4);poly(c,[[-15,-52],[-18,-64],[-10,-78],[9,-78],[18,-65],[14,-52]],'#879294','#d1c8b4',1.5);poly(c,[[-9,-77],[-2,-87],[2,-87],[11,-77]],'#3d494e','#c2b8a6',1);poly(c,[[-12,-66],[12,-66],[9,-59],[-9,-59]],'#10181e');box(c,1,-65,8,2,'#edb0a0');poly(c,[[-17,-50],[-22,-44],[-18,-28],[-11,-31]],'#667478','#c4b8a2',1);poly(c,[[13,-50],[20,-45],[20,-30],[12,-29]],'#667478','#c4b8a2',1);if(p.attack>0){let swing=(.33-p.attack)/.33;stroke(c,14,-39,28+Math.cos(swing*3)*39,-64+Math.sin(swing*3)*34,'#e2d6b9',5);c.strokeStyle='rgba(255,198,142,.65)';c.lineWidth=5;c.beginPath();c.arc(14,-43,47,-1.4+swing*1.7,-.9+swing*1.7);c.stroke()}else{stroke(c,18,-37,34,-11,'#b6a999',4);stroke(c,17,-38,24,-31,'#d7bc89',4)}c.restore()}
