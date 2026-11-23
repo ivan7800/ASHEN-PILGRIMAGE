@@ -1,0 +1,696 @@
+{
+  "method": "QA injected duels, player idle, 4.8 seconds per fight; not a complete playthrough",
+  "duels": [
+    {
+      "kind": "corruptpilgrim",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 30,
+      "staminaDrain": 0,
+      "index": 0,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "vesperaguard",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 28,
+      "staminaDrain": 0,
+      "index": 10,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "sunfanatic",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 28,
+      "staminaDrain": 7,
+      "index": 65,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "cryptscavenger",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 18,
+      "staminaDrain": 0,
+      "index": 2,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "ashhound",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 24,
+      "staminaDrain": 0,
+      "index": 5,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "wailingspecter",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 16,
+      "staminaDrain": 8,
+      "index": 7,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "severedmonk",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 36,
+      "staminaDrain": 0,
+      "index": 26,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "brineworm",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 24,
+      "staminaDrain": 0,
+      "index": 35,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "namelessdrowned",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 26,
+      "staminaDrain": 0,
+      "index": 37,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "rottensiren",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 24,
+      "staminaDrain": 14,
+      "index": 40,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "chainedcastaway",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 36,
+      "staminaDrain": 8,
+      "index": 34,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "fungalsporer",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 18,
+      "staminaDrain": 7,
+      "index": 18,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "crustplague",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 20,
+      "staminaDrain": 0,
+      "index": 19,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "sporematriarch",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 14,
+      "staminaDrain": 8,
+      "index": 23,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "saltgolem",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 40,
+      "staminaDrain": 0,
+      "index": 39,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "abyssraven",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 26,
+      "staminaDrain": 0,
+      "index": 58,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "ruinsentinel",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 34,
+      "staminaDrain": 0,
+      "index": 28,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "voidherald",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 32,
+      "staminaDrain": 14,
+      "index": 68,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "sigilabomination",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 38,
+      "staminaDrain": 0,
+      "index": 47,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "disfigured",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 40,
+      "staminaDrain": 7,
+      "index": 60,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "dreamweaver",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 28,
+      "staminaDrain": 16,
+      "index": 29,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "namecorrupter",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 14,
+      "staminaDrain": 20,
+      "index": 30,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "devotedflesh",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 44,
+      "staminaDrain": 9,
+      "index": 70,
+      "mode": "pilgrim"
+    },
+    {
+      "kind": "corruptpilgrim",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 39,
+      "staminaDrain": 0,
+      "index": 0,
+      "mode": "normal"
+    },
+    {
+      "kind": "vesperaguard",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 36,
+      "staminaDrain": 0,
+      "index": 10,
+      "mode": "normal"
+    },
+    {
+      "kind": "sunfanatic",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 38,
+      "staminaDrain": 7,
+      "index": 65,
+      "mode": "normal"
+    },
+    {
+      "kind": "cryptscavenger",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 24,
+      "staminaDrain": 0,
+      "index": 2,
+      "mode": "normal"
+    },
+    {
+      "kind": "ashhound",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 32,
+      "staminaDrain": 0,
+      "index": 5,
+      "mode": "normal"
+    },
+    {
+      "kind": "wailingspecter",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 22,
+      "staminaDrain": 8,
+      "index": 7,
+      "mode": "normal"
+    },
+    {
+      "kind": "severedmonk",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 48,
+      "staminaDrain": 0,
+      "index": 26,
+      "mode": "normal"
+    },
+    {
+      "kind": "brineworm",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 32,
+      "staminaDrain": 0,
+      "index": 35,
+      "mode": "normal"
+    },
+    {
+      "kind": "namelessdrowned",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 51,
+      "staminaDrain": 0,
+      "index": 37,
+      "mode": "normal"
+    },
+    {
+      "kind": "rottensiren",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 32,
+      "staminaDrain": 14,
+      "index": 40,
+      "mode": "normal"
+    },
+    {
+      "kind": "chainedcastaway",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 48,
+      "staminaDrain": 8,
+      "index": 34,
+      "mode": "normal"
+    },
+    {
+      "kind": "fungalsporer",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 24,
+      "staminaDrain": 7,
+      "index": 18,
+      "mode": "normal"
+    },
+    {
+      "kind": "crustplague",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 26,
+      "staminaDrain": 0,
+      "index": 19,
+      "mode": "normal"
+    },
+    {
+      "kind": "sporematriarch",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 19,
+      "staminaDrain": 8,
+      "index": 23,
+      "mode": "normal"
+    },
+    {
+      "kind": "saltgolem",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 54,
+      "staminaDrain": 0,
+      "index": 39,
+      "mode": "normal"
+    },
+    {
+      "kind": "abyssraven",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 34,
+      "staminaDrain": 0,
+      "index": 58,
+      "mode": "normal"
+    },
+    {
+      "kind": "ruinsentinel",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 46,
+      "staminaDrain": 0,
+      "index": 28,
+      "mode": "normal"
+    },
+    {
+      "kind": "voidherald",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 42,
+      "staminaDrain": 14,
+      "index": 68,
+      "mode": "normal"
+    },
+    {
+      "kind": "sigilabomination",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 50,
+      "staminaDrain": 0,
+      "index": 47,
+      "mode": "normal"
+    },
+    {
+      "kind": "disfigured",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 54,
+      "staminaDrain": 7,
+      "index": 60,
+      "mode": "normal"
+    },
+    {
+      "kind": "dreamweaver",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 36,
+      "staminaDrain": 16,
+      "index": 29,
+      "mode": "normal"
+    },
+    {
+      "kind": "namecorrupter",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 38,
+      "staminaDrain": 20,
+      "index": 30,
+      "mode": "normal"
+    },
+    {
+      "kind": "devotedflesh",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 58,
+      "staminaDrain": 9,
+      "index": 70,
+      "mode": "normal"
+    },
+    {
+      "kind": "corruptpilgrim",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 48,
+      "staminaDrain": 0,
+      "index": 0,
+      "mode": "penance"
+    },
+    {
+      "kind": "vesperaguard",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 46,
+      "staminaDrain": 0,
+      "index": 10,
+      "mode": "penance"
+    },
+    {
+      "kind": "sunfanatic",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 48,
+      "staminaDrain": 7,
+      "index": 65,
+      "mode": "penance"
+    },
+    {
+      "kind": "cryptscavenger",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 30,
+      "staminaDrain": 0,
+      "index": 2,
+      "mode": "penance"
+    },
+    {
+      "kind": "ashhound",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 40,
+      "staminaDrain": 0,
+      "index": 5,
+      "mode": "penance"
+    },
+    {
+      "kind": "wailingspecter",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 28,
+      "staminaDrain": 8,
+      "index": 7,
+      "mode": "penance"
+    },
+    {
+      "kind": "severedmonk",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 60,
+      "staminaDrain": 0,
+      "index": 26,
+      "mode": "penance"
+    },
+    {
+      "kind": "brineworm",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 40,
+      "staminaDrain": 0,
+      "index": 35,
+      "mode": "penance"
+    },
+    {
+      "kind": "namelessdrowned",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 63,
+      "staminaDrain": 0,
+      "index": 37,
+      "mode": "penance"
+    },
+    {
+      "kind": "rottensiren",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 40,
+      "staminaDrain": 14,
+      "index": 40,
+      "mode": "penance"
+    },
+    {
+      "kind": "chainedcastaway",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 60,
+      "staminaDrain": 8,
+      "index": 34,
+      "mode": "penance"
+    },
+    {
+      "kind": "fungalsporer",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 30,
+      "staminaDrain": 7,
+      "index": 18,
+      "mode": "penance"
+    },
+    {
+      "kind": "crustplague",
+      "windup": true,
+      "projectile": false,
+      "burst": true,
+      "damage": 32,
+      "staminaDrain": 0,
+      "index": 19,
+      "mode": "penance"
+    },
+    {
+      "kind": "sporematriarch",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 24,
+      "staminaDrain": 8,
+      "index": 23,
+      "mode": "penance"
+    },
+    {
+      "kind": "saltgolem",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 68,
+      "staminaDrain": 0,
+      "index": 39,
+      "mode": "penance"
+    },
+    {
+      "kind": "abyssraven",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 42,
+      "staminaDrain": 0,
+      "index": 58,
+      "mode": "penance"
+    },
+    {
+      "kind": "ruinsentinel",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 58,
+      "staminaDrain": 0,
+      "index": 28,
+      "mode": "penance"
+    },
+    {
+      "kind": "voidherald",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 52,
+      "staminaDrain": 14,
+      "index": 68,
+      "mode": "penance"
+    },
+    {
+      "kind": "sigilabomination",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 62,
+      "staminaDrain": 0,
+      "index": 47,
+      "mode": "penance"
+    },
+    {
+      "kind": "disfigured",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 68,
+      "staminaDrain": 7,
+      "index": 60,
+      "mode": "penance"
+    },
+    {
+      "kind": "dreamweaver",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 46,
+      "staminaDrain": 16,
+      "index": 29,
+      "mode": "penance"
+    },
+    {
+      "kind": "namecorrupter",
+      "windup": true,
+      "projectile": true,
+      "burst": false,
+      "damage": 48,
+      "staminaDrain": 20,
+      "index": 30,
+      "mode": "penance"
+    },
+    {
+      "kind": "devotedflesh",
+      "windup": true,
+      "projectile": false,
+      "burst": false,
+      "damage": 72,
+      "staminaDrain": 9,
+      "index": 70,
+      "mode": "penance"
+    }
+  ],
+  "javascript_errors": []
+}

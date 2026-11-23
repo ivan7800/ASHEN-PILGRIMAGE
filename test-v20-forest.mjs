@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {MEMORY_SIGILS,ECHO_ORDER,hearMemory,canChallengeMother,forestEpilogue} from './forest-v20.js';
+import {chambers,chamberAt,portalFor} from './chambers.js';
+import {validateSave} from './save-manager.js';
+import {enemyBehavior} from './combat.js';
+assert.ok(chambers.length>=22, 'La ampliación conserva las 22 cámaras anteriores');
+assert.equal(chamberAt(11400),10);assert.equal(chamberAt(12500),11);
+assert.equal(chamberAt(portalFor(12140,10).destination),11);
+assert.deepEqual(ECHO_ORDER,[2,0,1]);
+assert.equal(MEMORY_SIGILS.length,3);
+let echoes=[];
+assert.equal(hearMemory(echoes,2,{desvelo:false,stage:3}).changed,false);
+assert.equal(hearMemory(echoes,2,{desvelo:true,stage:2}).changed,false);
+for(const id of [2,0]){const r=hearMemory(echoes,id,{desvelo:true,stage:3});assert.equal(r.changed,true);echoes=r.echoes}
+const bad=hearMemory(echoes,2,{desvelo:true,stage:3});assert.deepEqual(bad.echoes,[]);
+echoes=[];for(const id of ECHO_ORDER)echoes=hearMemory(echoes,id,{desvelo:true,stage:3}).echoes;
+assert.ok(canChallengeMother(3,echoes));assert.ok(!canChallengeMother(2,echoes));assert.ok(!canChallengeMother(3,[0,1,2]));
+assert.ok(forestEpilogue().includes('Aina'));
+const enemies=Array.from({length:24},(_,i)=>({alive:true,hp:i===8?180:i===16?320:i===21?420:i>=17?78:i>=12?64:i>=9?58:42}));
+const base={p:{x:12700,hp:100,flasks:3,checkpoint:11320},enemies,secrets:[{taken:false},{taken:false}],phase:'playing',visited:[0,7,8,9,10,11],forestStage:3,forestEchoes:echoes,forestClear:false};
+assert.ok(validateSave(base));assert.ok(validateSave({...base,forestClear:true}));assert.ok(!validateSave({...base,forestEchoes:[2,2]}));assert.ok(!validateSave({...base,p:{...base.p,x:46601}}));
+assert.notDeepEqual(enemyBehavior('mother'),enemyBehavior('rootguard'));
+console.log('OK: 2 nuevos sectores, puzle de 3 ecos, boss gate, guardados compatibles');

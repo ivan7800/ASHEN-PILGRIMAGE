@@ -1,13 +1,22 @@
 name: Quality
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Run JavaScript suites
-        run: |
-          if compgen -G 'test-*.mjs' > /dev/null; then for f in test-*.mjs; do node "$f" || exit 1; done; else echo 'No suites yet'; fi
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Verify release manifest
+        run: sha256sum -c MANIFIESTO-SHA256-v4.0-RC.txt
+
+      - name: Run complete automated QA
+        run: ./VERIFICAR-LINUX.sh

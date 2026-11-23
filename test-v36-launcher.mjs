@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const win=readFileSync('JUGAR-WINDOWS.bat','utf8');
+const lin=readFileSync('JUGAR-LINUX.sh','utf8');
+const qwin=readFileSync('VERIFICAR-WINDOWS.bat','utf8');
+const qlin=readFileSync('VERIFICAR-LINUX.sh','utf8');
+assert.ok(win.includes('py -3 -c '),'Windows debe comprobar que el lanzador py realmente funciona');
+assert.ok(win.includes('python -c '),'debe poder utilizar python cuando py falla');
+assert.ok(win.includes('py -3 "%~dp0serve.py"'));
+assert.ok(win.includes('python "%~dp0serve.py"'));
+assert.ok(lin.includes('exec python3 "$DIR/serve.py"'));
+assert.ok(qwin.includes('tools\\qa-v36-preflight.py'));
+assert.ok(qlin.includes('tools/qa-v36-preflight.py'));
+console.log('OK v3.6: lanzadores Windows/Linux y comprobadores QA. BAT requiere ejecución en Windows real.');

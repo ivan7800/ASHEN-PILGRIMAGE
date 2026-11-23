@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {makeEffects,spawnImpact,stepEffects,renderEffects,bossAttackPattern} from './effects.js';
+import {readFileSync} from 'node:fs';
+const fx=makeEffects();
+spawnImpact(fx,220,130,'#aabbcc',500);
+assert.equal(fx.particles.length,32,'single impact capped');
+for(let i=0;i<10;i++)spawnImpact(fx,220,130,'#aabbcc',32);
+assert.equal(fx.particles.length,160,'global cap');
+assert.deepEqual(bossAttackPattern(2),{radius:132,windup:.42,recovery:1.25});
+assert.ok(bossAttackPattern(2).windup<bossAttackPattern(1).windup);
+fx.shake=12;fx.warning={x:300,y:440,r:132,ttl:.1};
+const calls=[];const ctx=new Proxy({save(){calls.push('save')},restore(){calls.push('restore')},beginPath(){},ellipse(){},stroke(){},fillRect(){}},{get(o,k){return o[k]??(()=>{})},set(o,k,v){o[k]=v;return true}});
+renderEffects(ctx,fx,90);assert.deepEqual([calls[0],calls.at(-1)],['save','restore']);
+stepEffects(fx,.12);assert.equal(fx.warning,null);assert.ok(fx.shake<12);assert.ok(fx.particles.length>0);
+stepEffects(fx,2);assert.equal(fx.particles.length,0);
+const game=readFileSync('game.js','utf8');
+for(const phrase of ['damagePlayer(', 'deathDelay=1.75', 'spawnImpact(effects', 'hitStop=.055', 'renderEffects(ctx,effects,camera)']) assert.ok(game.includes(phrase),phrase);
+console.log('OK: impact bounds, screen shake decay, telegraph, effect render, death transition wiring');

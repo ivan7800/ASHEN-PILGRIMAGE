@@ -1,0 +1,1 @@
+v3.2: texturas del suelo y plataformas generadas mediante Pillow a partir de una semilla fija, con resolución pixelada; código fuente build-art-v32.py. Procedimientos 100 % originales.

@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+const noop=()=>{};
+const c=new Proxy({createLinearGradient:()=>({addColorStop:noop}),createRadialGradient:()=>({addColorStop:noop})},{get:(o,k)=>o[k]??noop});
+const els=new Map(['#game','#status','#audio','#pause','#reset'].map(id=>[id,{textContent:'',getContext:()=>c,onclick:null}]));
+globalThis.document={querySelector:id=>els.get(id)};
+globalThis.window={};globalThis.Image=class{complete=false;naturalWidth=0;set src(x){this._src=x}};
+Object.defineProperty(globalThis,'navigator',{configurable:true,value:{getGamepads:()=>[]}});
+globalThis.location={reload:noop};
+const store=new Map();const key='ashen-pilgrimage-prototype-v01';
+store.set(key,JSON.stringify({p:{x:390,hp:85,flasks:2,checkpoint:90},enemies:Array.from({length:9},(_,i)=>({hp:i===8?180:42,alive:true})),secrets:[{taken:false},{taken:false}],phase:'playing'}));
+globalThis.localStorage={getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v),removeItem:k=>store.delete(k)};
+const events={};globalThis.addEventListener=(kind,fn)=>{events[kind]=fn};
+const frames=[];globalThis.requestAnimationFrame=fn=>frames.push(fn);
+await import('./game.js');
+let now=performance.now();const frame=()=>{now+=16;assert.equal(frames.length,1);frames.shift()(now)};
+frame();assert.match(els.get('#status').textContent,/^$/);
+events.keydown({code:'KeyE',repeat:false,preventDefault:noop});frame();events.keyup({code:'KeyE'});
+let d=JSON.parse(store.get(key));assert.equal(d.loreSeen[0],true);assert.equal(d.loreSeen.filter(Boolean).length,1);assert.equal(d.p.x,390);
+// Additional save/load re-import with a 180 HP boss validates the upgraded save bounds.
+assert.equal(d.enemies[8].hp,180);
+events.keydown({code:'KeyQ',repeat:false,preventDefault:noop});frame();events.keyup({code:'KeyQ'});
+els.get('#pause').onclick();frame();assert.equal(els.get('#pause').textContent,'Reanudar');els.get('#pause').onclick();
+console.log('OK: old save admitted, lore interaction persisted, boss 180HP state persisted, Desvelo, pause.');

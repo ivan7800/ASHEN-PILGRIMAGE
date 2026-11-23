@@ -1,0 +1,22 @@
+// Headless isolated JS runtime smoke test, not a real browser gameplay test.
+import assert from 'node:assert/strict';
+const noop=()=>{};
+const ctx=new Proxy({createLinearGradient:()=>({addColorStop:noop}),createRadialGradient:()=>({addColorStop:noop}),measureText:()=>({width:10})},{get(o,k){return o[k]??noop},set(o,k,v){o[k]=v;return true}});
+const elements=new Map();
+for(const id of ['#game','#status','#audio','#pause','#reset'])elements.set(id,{width:960,height:540,textContent:'',onclick:null,getContext:()=>ctx});
+globalThis.document={querySelector:id=>elements.get(id)};
+globalThis.window={};
+Object.defineProperty(globalThis,'navigator',{configurable:true,value:{getGamepads:()=>[]}});
+globalThis.location={reload:noop};
+globalThis.localStorage={getItem:()=>null,setItem:noop,removeItem:noop};
+globalThis.Image=class {complete=false;naturalWidth=0;naturalHeight=0;set src(v){this._src=v}};
+const keyhandlers={};globalThis.addEventListener=(t,fn)=>keyhandlers[t]=fn;
+const frames=[];globalThis.requestAnimationFrame=fn=>frames.push(fn);
+await import('./game.js');
+assert.equal(frames.length,1);assert.equal(typeof elements.get('#audio').onclick,'function');
+frames.shift()(performance.now()+16);
+keyhandlers.keydown({code:'KeyD',preventDefault:noop,repeat:false});for(let i=0;i<20;i++)frames.shift()(performance.now()+i*16);
+keyhandlers.keyup({code:'KeyD'});keyhandlers.keydown({code:'KeyJ',preventDefault:noop,repeat:false});frames.shift()(performance.now()+350);
+elements.get('#pause').onclick();assert.equal(elements.get('#pause').textContent,'Reanudar');
+elements.get('#pause').onclick();assert.equal(elements.get('#pause').textContent,'Pausa');
+console.log('OK: initialization, 22 frame updates/draws, combat input, pause/resume.');

@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {createSaveManager,validateSave,LEGACY,PREFIX} from './save-manager.js';
+const map=new Map();const store={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v),removeItem:k=>map.delete(k)};
+const manager=createSaveManager(store);
+const baseline={p:{x:530,hp:82,flasks:2,checkpoint:90},enemies:Array.from({length:9},(_,i)=>({hp:i===8?180:42,alive:true})),secrets:[{taken:false},{taken:true}],phase:'playing',loreSeen:[true,false,false,false],kills:0};
+assert.ok(validateSave(baseline));assert.equal(manager.latest(),null);
+map.set(LEGACY,JSON.stringify(baseline));assert.ok(manager.migrate());assert.equal(manager.read('auto').p.x,530);
+manager.write('slot1',baseline);manager.write('slot2',{...baseline,p:{...baseline.p,x:1450}});
+assert.equal(manager.read('slot1').p.x,530);assert.equal(manager.read('slot2').p.x,1450);
+manager.write('auto',{...baseline,p:{...baseline.p,x:3310}});
+assert.equal(manager.read('slot1').p.x,530,'autoguardado no sobrescribe ranuras manuales');
+manager.remove('slot2');assert.equal(manager.read('slot2'),null);assert.ok(map.has(LEGACY),'migrar no elimina el guardado legado');
+map.set(PREFIX+'slot3','{corrupt');assert.equal(manager.read('slot3'),null);
+assert.equal(validateSave({...baseline,p:{...baseline.p,hp:-4}}),false);
+assert.equal(validateSave({...baseline,enemies:[{hp:42,alive:true}]}),false);
+assert.throws(()=>manager.write('badslot',baseline));
+console.log('OK: migration, 3 slots, isolated autosave, deletion, corrupt saves, validation.');

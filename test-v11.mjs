@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {beginAttack,startSwing,advanceSwing,IMPACT_WINDOWS,projectileCrossesPlayer,attackHit} from './combat.js';
+const player={x:100,y:370,w:32,h:68,face:1,stamina:100,attack:0,dodge:0,combo:0,comboWindow:0,attackId:0};
+const enemy={x:159,y:370,w:30,h:54,alive:true,hitIds:[]};
+const attack=beginAttack(player);assert.equal(attack.index,0);
+startSwing(player,attack);
+assert.equal(advanceSwing(player,IMPACT_WINDOWS[0]/2),null,'no damage before impact');
+const swing=advanceSwing(player,IMPACT_WINDOWS[0]/2);assert.equal(swing.id,1);
+assert.equal(attackHit(player,enemy,swing.index),true);
+assert.equal(advanceSwing(player,1),null,'single impact window per attack');
+enemy.hitIds.push(swing.id);assert.equal(enemy.hitIds.includes(swing.id),true);
+assert.equal(projectileCrossesPlayer(60,165,405,player),true,'swept collision catches skipped frame');
+assert.equal(projectileCrossesPlayer(60,165,290,player),false,'different height');
+assert.equal(projectileCrossesPlayer(200,260,405,player),false,'outside player');
+console.log('OK: delayed swing, unique strike, swept projectile collision');
