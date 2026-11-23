@@ -272,14 +272,20 @@ addEventListener('keydown',e=>{
  }
  if(['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();if(e.code==='Escape'&&!e.repeat)togglePause();if(!keys.has(e.code))pressed.add(e.code);keys.add(e.code)
 });addEventListener('keyup',e=>keys.delete(e.code));
-const held=(...a)=>a.some(k=>keys.has(k)),tap=(...a)=>a.some(k=>pressed.has(k));
-function controls(){let g=Array.from(navigator.getGamepads?.()||[]).find(x=>x?.connected&&x.mapping==='standard');let gp={left:false,right:false,jump:false,attack:false,dodge:false,interact:false,desvelo:false,heal:false,save:false,pause:false,inventory:false,map:false};if(g){gp.left=g.axes[0]<-.25||g.buttons[14]?.pressed;gp.right=g.axes[0]>.25||g.buttons[15]?.pressed;gp.jump=g.buttons[0]?.pressed;gp.attack=g.buttons[2]?.pressed;gp.dodge=g.buttons[1]?.pressed;gp.interact=g.buttons[3]?.pressed;gp.desvelo=g.buttons[5]?.pressed;gp.heal=g.buttons[12]?.pressed;gp.save=g.buttons[8]?.pressed;gp.pause=g.buttons[9]?.pressed;gp.inventory=g.buttons[4]?.pressed;gp.map=g.buttons[6]?.pressed}const edge=k=>gp[k]&&!gamepadPrev[k];let c={left:held('KeyA','ArrowLeft')||gp.left,right:held('KeyD','ArrowRight')||gp.right,jump:tap('Space','KeyW','ArrowUp')||edge('jump'),attack:tap('KeyJ')||edge('attack'),dodge:tap('ShiftLeft','ShiftRight')||edge('dodge'),interact:tap('KeyE')||edge('interact'),desvelo:tap('KeyQ')||edge('desvelo'),heal:tap('KeyR')||edge('heal'),save:tap('KeyP')||edge('save'),pause:edge('pause'),inventory:tap('KeyI')||edge('inventory'),map:tap('KeyM')||edge('map')};gamepadPrev=gp;return c}
+const touchHeld=new Set(),touchPressed=new Set();
+document.querySelectorAll?.('#touchControls [data-key]').forEach(button=>{
+ const code=button.dataset.key;
+ button.addEventListener('pointerdown',event=>{event.preventDefault();button.setPointerCapture?.(event.pointerId);if(!touchHeld.has(code))touchPressed.add(code);touchHeld.add(code)});
+ for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,()=>touchHeld.delete(code));
+});
+const held=(...a)=>a.some(k=>keys.has(k)||touchHeld.has(k)),tap=(...a)=>a.some(k=>pressed.has(k)||touchPressed.has(k));
+function controls(){let g=Array.from(navigator.getGamepads?.()||[]).find(x=>x?.connected&&x.mapping==='standard');let gp={left:false,right:false,jump:false,attack:false,dodge:false,interact:false,desvelo:false,heal:false,save:false,pause:false,inventory:false,map:false};if(g){gp.left=g.axes[0]<-.25||g.buttons[14]?.pressed;gp.right=g.axes[0]>.25||g.buttons[15]?.pressed;gp.jump=g.buttons[0]?.pressed;gp.attack=g.buttons[2]?.pressed;gp.dodge=g.buttons[1]?.pressed;gp.interact=g.buttons[3]?.pressed;gp.desvelo=g.buttons[5]?.pressed;gp.heal=g.buttons[12]?.pressed;gp.save=g.buttons[8]?.pressed;gp.pause=g.buttons[9]?.pressed;gp.inventory=g.buttons[4]?.pressed;gp.map=g.buttons[6]?.pressed}const edge=k=>gp[k]&&!gamepadPrev[k];let c={left:held('KeyA','ArrowLeft')||gp.left,right:held('KeyD','ArrowRight')||gp.right,jump:tap('Space','KeyW','ArrowUp')||edge('jump'),attack:tap('KeyJ')||edge('attack'),dodge:tap('ShiftLeft','ShiftRight')||edge('dodge'),interact:tap('KeyE')||edge('interact'),desvelo:tap('KeyQ')||edge('desvelo'),heal:tap('KeyR')||edge('heal'),save:tap('KeyP')||edge('save'),pause:edge('pause'),inventory:tap('KeyI')||edge('inventory'),map:tap('KeyM')||edge('map')};gamepadPrev=gp;touchPressed.clear();return c}
 function collide(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
 function damagePlayer(amount,sourceX,detail){
  if(p.inv>0||deathDelay>0)return false;
  p.hp=Math.max(0,p.hp-incomingDamage(amount,difficulty));p.hurtTime=.32;p.inv=.72;effects.shake=Math.max(effects.shake,8);
  spawnImpact(effects,p.x+p.w/2,p.y+32,'#f5ad8c',13);sound(95,.17);note(detail,1.4);
- if(p.hp<=0){deathDelay=1.75;deathCount++;note('LA CENIZA RECLAMA TU NOMBRE — regresando a la hoguera',2.5)}
+ if(p.hp<=0){deathDelay=1.75;p.deathTime=deathDelay;deathCount++;note('LA CENIZA RECLAMA TU NOMBRE — regresando a la hoguera',2.5)}
  return true;
 }
 function update(dt){if(paused){navigateMenuPad();pressed.clear();controls();return}let c=controls();
@@ -288,7 +294,7 @@ function update(dt){if(paused){navigateMenuPad();pressed.clear();controls();retu
  const rootsBefore=rootsClock;
  rootsClock+=dt;
  if(zoneAt(p.x)>=22&&zoneAt(p.x)<=24&&ROOT_THORNS.some(t=>zoneAt(t.x)===zoneAt(p.x)&&thornWarningCrossed(t,rootsBefore,rootsClock,p.x+p.w/2)))soundscape.cue('thorn-warning',audioContext,audioEnabled);
- if(deathDelay>0){deathDelay=Math.max(0,deathDelay-dt);if(deathDelay===0){p.hp=100;p.flasks=3;p.stamina=100;p.x=p.checkpoint;p.y=ground-p.h;p.vy=0;p.vx=0;p.attack=0;p.dodge=0;p.pendingSwing=null;p.hurtTime=0;p.inv=1.2;save()}pressed.clear();return}
+ if(deathDelay>0){deathDelay=Math.max(0,deathDelay-dt);p.deathTime=deathDelay;if(deathDelay===0){p.hp=100;p.flasks=3;p.stamina=100;p.x=p.checkpoint;p.y=ground-p.h;p.vy=0;p.vx=0;p.attack=0;p.dodge=0;p.pendingSwing=null;p.hurtTime=0;p.inv=1.2;save()}pressed.clear();return}
 if(c.inventory&&hasMenu){showMenu('inventory');pressed.clear();return}if(c.map&&hasMenu){showMenu('map');pressed.clear();return}
  if(phase==='intro'){phase='playing';note('LA FOSA DE LOS QUE REGRESAN — La campana recuerda tu nombre.',5)}const nextZone=zoneAt(p.x);if(zoneIndex!==nextZone){zoneIndex=nextZone;visited.add(nextZone);story(zones[nextZone].name.toUpperCase(),zones[nextZone].story,4)}
 if(c.desvelo){desvelo=!desvelo;note(desvelo?'DESVELO: los recuerdos atraviesan la piedra':'El mundo vuelve a su forma visible')};
