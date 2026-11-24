@@ -37,14 +37,16 @@ def remaster(path, accent):
                 lum=(r+g+b)/3
                 if lum<92:
                     pix[x,y]=(int(r*.72+ar*.28),int(g*.72+ag*.28),int(b*.72+ab*.28))
-        rgb=rgb.resize((128,160),Image.Resampling.NEAREST)
-        mask=alpha.resize((64,80),Image.Resampling.LANCZOS).resize((128,160),Image.Resampling.NEAREST)
+        # Keep a deliberate 6px/5px safety margin inside every 128x160 cell;
+        # several source poses had crowns, weapons or feet touching the crop.
+        rgb=rgb.resize((116,148),Image.Resampling.NEAREST)
+        mask=alpha.resize((64,80),Image.Resampling.LANCZOS).resize((116,148),Image.Resampling.NEAREST)
         # One-pixel stepped edge keeps the sprite readable against dark rooms.
         edge=mask.filter(ImageFilter.MaxFilter(3))
         edge=Image.eval(edge,lambda v: min(v,105))
         rgba=Image.merge('RGBA',(*rgb.split(),mask))
-        under=Image.new('RGBA',(128,160),(8,10,14,0)); under.putalpha(edge)
-        out.alpha_composite(under,(i*128,0));out.alpha_composite(rgba,(i*128,0))
+        under=Image.new('RGBA',(116,148),(8,10,14,0)); under.putalpha(edge)
+        out.alpha_composite(under,(i*128+6,6));out.alpha_composite(rgba,(i*128+6,6))
     out.save(path,optimize=True)
 
 for name,accent in BOSSES.items():
