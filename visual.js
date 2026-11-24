@@ -1,5 +1,5 @@
 // ASHEN PILGRIMAGE — original procedural gothic art, no external assets.
-import {paintChamber, chamberAt} from './chambers.js';
+import {paintChamber, chamberAt, chambers} from './chambers.js';
 import {BESTIARY_ART,bestiarySpec,bestiaryFrame} from './bestiary-v37.js';
 import {renderBestiaryAction} from './bestiary-presentation-v38.js';
 import {graphicsProfile, visibleTileStarts} from './visual-style-v32.js';
@@ -18,6 +18,7 @@ import {RESONATORS,giantTelegraph} from './summit-v29.js';
 import {SOLAR_SEALS,FIRST_WITNESS_INDEX,FINAL_START,FINAL_END} from './final-throne-v30.js';
 import {ROOT_NPCS,ROOT_SIGILS} from './roots-v26.js';
 import {paintRootsObjects} from './roots-art.js';
+import {paintArchitecture} from './screen-architecture-v1.js';
 const TAU=Math.PI*2;
 // Real, separately stored visual resources. Missing assets fall back to vector art.
 const art = Object.fromEntries(Object.entries({
@@ -142,6 +143,7 @@ if(isSeaRegion(area)){
   box(c,0,ground-178,W,206,contrast);
 }
 paintChamber(c,{camera,W,H,ground,area,time,desvelo});
+paintArchitecture(c,{area,start:chambers[area].start,end:chambers[area].end,ground,time,desvelo});
 c.save();c.translate(-camera,0);
 if(ready(art.stoneFloor)){
  for(const x of visibleTileStarts(camera,W,256))c.drawImage(art.stoneFloor,x,ground-4,256,128);
