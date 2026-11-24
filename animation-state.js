@@ -9,7 +9,8 @@ export function playerFrame(p,time=0){
   }
   if(p.dodge>0)return 7;
   if(!p.grounded)return 6;
-  if(Math.abs(p.vx)>1)return Math.floor(time/125)%4;
+  // Match footfalls to distance travelled rather than elapsed time.
+  if(Math.abs(p.motion??p.vx)>1)return Math.floor((p.walkDistance||0)/24)%4;
   return 4+Math.floor(time/700)%2;
 }
 export function bossFrame(e,time=0){

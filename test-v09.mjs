@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync, statSync} from 'node:fs';
 import {chambers} from './chambers.js';
+import {playerFrame} from './animation-state.js';
 const src=readFileSync('visual.js','utf8');
 for(const id of ['pilgrim','gravebound','mourner','warden']){
  const path=`assets/${id}-${['pilgrim','warden'].includes(id)?'v14':'v15'}.png`, png=readFileSync(path);
@@ -17,5 +18,5 @@ for (const id of ['crypt','cloister','ossuary','bell','arena','valdren','market'
 }
 assert.ok(src.includes("e.kind==='mourner'?art.mourner"));
 assert.ok(src.includes('playerFrame(p,time)'));
-assert.ok(readFileSync('animation-state.js','utf8').includes('Math.floor(time/125)%4'));
+assert.equal(playerFrame({hp:100,grounded:true,vx:225,motion:225,walkDistance:48,attack:0,dodge:0,hurtTime:0},0),2);
 console.log('OK: 20-frame atlases, separate enemy silhouettes, 5 backgrounds, gameplay references.');

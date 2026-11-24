@@ -9,7 +9,10 @@ for(const kind of ['pilgrim','warden']){
 }
 const player={vx:0,grounded:true,attack:0,dodge:0,combo:0,hurtTime:0};
 assert.ok([4,5].includes(playerFrame(player,0)));
-player.vx=80;assert.equal(playerFrame(player,375),3);
+player.vx=80;player.walkDistance=72;assert.equal(playerFrame(player,375),3);
+player.walkDistance=0;assert.equal(playerFrame(player,375),0,'Los pasos siguen la distancia y no el reloj');
+player.motion=0;assert.ok([4,5].includes(playerFrame(player,375)),'No camina contra una pared');
+delete player.motion;
 player.vx=0;player.grounded=false;assert.equal(playerFrame(player,0),6);
 player.grounded=true;player.dodge=.2;assert.equal(playerFrame(player,0),7);
 player.dodge=0;player.attack=.30;assert.equal(playerFrame(player,0),8);

@@ -45,15 +45,15 @@ function box(c,x,y,w,h,color){c.fillStyle=color;c.fillRect(x,y,w,h)}
 function arch(c,x,y,w,h,color,inner=null){c.fillStyle=color;c.beginPath();c.moveTo(x,y+h);c.lineTo(x,y+w*.42);c.quadraticCurveTo(x+w*.2,y+w*.12,x+w*.5,y);c.quadraticCurveTo(x+w*.8,y+w*.12,x+w,y+w*.42);c.lineTo(x+w,y+h);c.closePath();c.fill();if(inner)arch(c,x+7,y+11,w-14,h-11,inner)}
 function tower(c,x,base,w,h,palette,seed){let top=base-h;box(c,x,top,w,h,palette.wall);for(let i=0;i<4;i++){let xx=x+i*w/4;stroke(c,xx,top+7,xx,base,palette.mortar,1)}for(let j=0;j<Math.floor(h/33);j++){stroke(c,x,top+24+j*33,x+w,top+24+j*33,palette.mortar,1);for(let k=0;k<3;k++){let xx=x+hash(seed+j*11+k)*w;stroke(c,xx,top+24+j*33,xx,top+35+j*33,palette.mortar,1)}}for(let j=0;j<3;j++)arch(c,x+w*(.15+j*.29),top+34,w*.17,h*.22,palette.cut,palette.glass);for(let j=0;j<Math.ceil(w/17);j++){box(c,x+j*17,top-9,12,12,palette.wall)}poly(c,[[x-7,top],[x+w/2,top-h*.19],[x+w+7,top]],palette.roof);stroke(c,x+w/2,top-h*.19-14,x+w/2,top-h*.19,palette.metal,2)}
 function silhouette(c,x,y,scale=1,seed=0){c.save();c.translate(x,y);c.scale(scale,scale);poly(c,[[-20,0],[-24,-58],[-12,-84],[0,-103],[14,-85],[22,-58],[20,0]],'#11191d');poly(c,[[-16,-72],[0,-106],[16,-72]],'#172329');stroke(c,-19,-65,19,-65,'#34434a',2);arch(c,-7,-67,14,25,'#0a1217','#3b1f23');for(let i=0;i<3;i++)stroke(c,-18+i*15,-52,-18+i*15,-4,'#24333a',1);c.restore()}
-function knight(c,p,time){
-  const moving=Math.abs(p.vx)>1&&p.grounded;
+function knight(c,p,time,reduceMotion=false){
+  const moving=Math.abs(p.motion??p.vx)>1&&p.grounded;
   const duration=p.combo===2?.50:p.combo===1?.35:.30;
   const progress=p.attack>0?1-p.attack/duration:0;
   const frame=playerFrame(p,time);
   c.save();if(p.inv>0&&Math.floor(time/80)%2===0)c.globalAlpha=.62;
-  const bob=moving?Math.sin(time*.016)*1.5:Math.sin(time*.002)*.65;
+  const bob=reduceMotion?0:moving?Math.sin((p.walkDistance||0)/24*Math.PI)*.8:Math.sin(time*.002)*.45;
   c.shadowColor='rgba(7,11,18,.75)';c.shadowBlur=3;
-  const done=sprite(c,art.pilgrim,frame,ANIMATION_FRAMES,p.x-47,p.y-67+bob+(p.dodge>0?8:0),125,p.dodge>0?127:145,p.face<0);
+  const done=sprite(c,art.pilgrim,frame,ANIMATION_FRAMES,p.x-47,p.y+(p.dodge>0?-59:-75)+bob,125,p.dodge>0?127:145,p.face<0);
   c.restore();
   if(done){
     if(p.attack>0){const cx=p.x+p.w*.5,cy=p.y+23;
@@ -208,7 +208,7 @@ for(let e of enemies){if(e.alive)foe(c,e,time,visualMode,reduceMotion);else if(e
   else {const im=art[e.kind]||(e.boss?art.warden:art.gravebound);if(ready(im)){const giant=e.kind==='bellgiant',w=e.kind==='firstwitness'?215:giant?244:e.boss?166:121,h=e.kind==='firstwitness'?238:giant?233:e.boss?177:145;const x=e.deathX-(e.kind==='firstwitness'?91:giant?105:e.boss?66:46),y=e.deathY-(e.kind==='firstwitness'?162:giant?155:e.boss?93:73);sprite(c,im,deathFrame(e.death),ANIMATION_FRAMES,x,y,w,h,e.dir>0)}else{c.fillStyle='#805d64';c.beginPath();c.ellipse(e.deathX+15,ground-5,32+(1-e.death)*35,8,0,0,Math.PI*2);c.fill()}}c.restore()}}
 // Contact shadow gives player a clear plane against ornate backgrounds.
 if(p.grounded){c.save();c.fillStyle='rgba(2,8,11,.34)';c.beginPath();c.ellipse(p.x+p.w/2,ground+2,35,6,0,0,TAU);c.fill();c.restore()}
-knight(c,p,time);
+knight(c,p,time,reduceMotion);
 // foreground arches and twisted silhouettes frame the action without obscuring the player.
 if(!ready(backdrop))for(let i=0;i<(area===7||area>=8?0:10);i++){let x=i*580-65;box(c,x,ground-250,22,250,'#1c2429');box(c,x-9,ground-256,39,11,'#31373a');poly(c,[[x-24,ground-254],[x+10,ground-310],[x+46,ground-254]],'#222a2e');for(let j=0;j<3;j++)stroke(c,x+4,ground-190+j*48,x+16,ground-202+j*48,'#3e4243',2)}c.restore();
  // Vegetation close to the virtual camera runs at 1.18x; kept translucent for combat readability.
