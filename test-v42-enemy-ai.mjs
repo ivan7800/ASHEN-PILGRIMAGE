@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {enemyArchetype,enemyMovement} from './enemy-ai-v1.js';
+assert.equal(enemyArchetype('vesperaguard'),'sentinel');
+assert.equal(enemyArchetype('sunfanatic'),'ranged');
+assert.equal(enemyArchetype('ashhound'),'charger');
+assert.equal(enemyArchetype('rottensiren'),'skirmisher');
+assert.equal(enemyArchetype('king'),'boss');
+const e={kind:'ashhound',x:100,origin:100,w:40,boss:false,phase:1,aiClock:0};
+const p={x:300};const zone={start:0,end:900};
+enemyMovement(e,p,{aggro:400,range:55,speed:100},.1,zone);
+assert.equal(e.aiState,'hunt');assert.ok(e.x>100);
+e.x=700;enemyMovement(e,{x:800},{aggro:400,range:55,speed:100},.1,zone);assert.equal(e.aiState,'return');assert.ok(e.x<700);
+console.log('OK v4.2: arquetipos de IA deterministas, persecución, retorno y estados propios.');
